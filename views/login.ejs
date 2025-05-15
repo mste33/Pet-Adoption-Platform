@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+    <h1>Login</h1>
+    
+    <% if (typeof message !== 'undefined') { %>
+        <div class="alert alert-danger mt-3">
+            <%= message %>
+        </div>
+    <% } %>
+    
+    <form id="loginForm" action="/login" method="POST" class="mt-4">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+            <div class="form-text">Username must contain letters and digits only.</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+            <div class="form-text">Password must be at least 4 characters long and contain at least one letter and one digit.</div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('loginForm');
+        
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            const usernameRegex = /^[a-zA-Z0-9]+$/;
+            if (!usernameRegex.test(username)) {
+                alert('Username can only contain letters and digits.');
+                return;
+            }
+            
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/;
+            if (!passwordRegex.test(password)) {
+                alert('Password must be at least 4 characters long and contain at least one letter and one digit.');
+                return;
+            }
+            
+            form.submit();
+        });
+    });
+</script>
+
+<%- include('partials/footer') %> 

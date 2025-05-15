@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+
+                <h2>Give Away a Pet</h2>
+                
+                <% if (typeof message !== 'undefined') { %>
+                    <div class="alert alert-success">
+                        <%= message %>
+                    </div>
+                <% } %>
+
+                <% if (typeof username !== 'undefined') { %>
+                    <p>Logged in as: <%= username %> (<a href="/logout">Logout</a>)</p>
+                <% } %>
+                
+                <form id="giveawayPetForm" class="mt-4" action="/giveaway" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Cat or Dog:</label>
+                        <select class="form-select" name="petType" required>
+                            <option value="cat">Cat</option>
+                            <option value="dog">Dog</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Breed:</label>
+                        <input type="text" class="form-control" name="breed" required placeholder="Enter breed or 'Mix breed'">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Age (in years):</label>
+                        <input type="number" class="form-control" name="age" required step="0.1" min="0" placeholder="Enter age in years">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gender:</label>
+                        <select class="form-select" name="gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gets along with:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="getAlongWith[]" value="dogs" id="getAlongDogs">
+                            <label class="form-check-label" for="getAlongDogs">Dogs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="getAlongWith[]" value="cats" id="getAlongCats">
+                            <label class="form-check-label" for="getAlongCats">Cats</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="getAlongWith[]" value="children" id="getAlongChildren">
+                            <label class="form-check-label" for="getAlongChildren">Children</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Good with:</label>
+                        <select class="form-select" name="goodWith" required>
+                            <option value="everyone">Everyone</option>
+                            <option value="adults">Adults Only</option>
+                            <option value="experienced">Experienced Owners</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Friendly Level:</label>
+                        <select class="form-select" name="friendly" required>
+                            <option value="very">Very Friendly</option>
+                            <option value="moderate">Moderately Friendly</option>
+                            <option value="shy">Shy/Reserved</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Health Status:</label>
+                        <select class="form-select" name="health" required>
+                            <option value="excellent">Excellent</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="special">Special Needs</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Comments:</label>
+                        <textarea class="form-control" name="comments" rows="4" placeholder="Brag about your pet!"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Owner's Full Name:</label>
+                        <input type="text" class="form-control" name="ownerName" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Owner's Email:</label>
+                        <input type="email" class="form-control" name="ownerEmail" placeholder="Enter your email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+
+<%- include('partials/footer') %> 

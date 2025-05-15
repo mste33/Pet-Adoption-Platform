@@ -1,0 +1,101 @@
+<%- include('partials/header') %>
+
+                <h2>Find a Dog or Cat</h2>
+                
+                <% if (typeof message !== 'undefined') { %>
+                    <div class="alert alert-info">
+                        <%= message %>
+                    </div>
+                <% } %>
+                
+                <form id="findPetForm" class="mt-4" action="/find" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Cat or Dog:</label>
+                        <select class="form-select" name="petType">
+                            <option value="any">Any</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Breed:</label>
+                        <input type="text" class="form-control" name="breed" placeholder="Enter breed or 'Doesn't matter'">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preferred Age:</label>
+                        <select class="form-select" name="age">
+                            <option value="any">Doesn't matter</option>
+                            <option value="puppy">Puppy/Kitten</option>
+                            <option value="young">Young</option>
+                            <option value="adult">Adult</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preferred Gender:</label>
+                        <select class="form-select" name="gender">
+                            <option value="any">Doesn't matter</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gets along with:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="getAlongWith[]" value="dogs">
+                            <label class="form-check-label">Other Dogs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="getAlongWith[]" value="cats">
+                            <label class="form-check-label">Other Cats</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="getAlongWith[]" value="children">
+                            <label class="form-check-label">Small Children</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+                
+                <% if (typeof pets !== 'undefined' && pets.length > 0) { %>
+                    <h3 class="mt-5">Search Results</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Breed</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Gets Along With</th>
+                                    <th>Good With</th>
+                                    <th>Friendly</th>
+                                    <th>Health</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% pets.forEach(function(pet) { %>
+                                    <tr>
+                                        <td><%= pet.id %></td>
+                                        <td><%= pet.type %></td>
+                                        <td><%= pet.breed %></td>
+                                        <td><%= pet.age %></td>
+                                        <td><%= pet.gender %></td>
+                                        <td><%= pet.getAlongWith %></td>
+                                        <td><%= pet.goodWith %></td>
+                                        <td><%= pet.friendly %></td>
+                                        <td><%= pet.health %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else if (typeof pets !== 'undefined' && pets.length === 0) { %>
+                    <div class="alert alert-warning mt-5">
+                        No pets found matching your criteria. Try adjusting your search.
+                    </div>
+                <% } %>
+
+<%- include('partials/footer') %> 
